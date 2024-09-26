@@ -10,9 +10,10 @@ namespace ProjectManagerDev.Models
         [JsonProperty("id")]
         [Column("id"), Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [MaxLength(32)]
         [JsonProperty("name")]
         [Column("name")]
-
         public required string Name { get; set; }
     }
 }
