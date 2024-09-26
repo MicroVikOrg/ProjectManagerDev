@@ -1,4 +1,5 @@
 using Confluent.Kafka;
+using Microsoft.EntityFrameworkCore;
 using ProjectManagerDev.Models;
 using ProjectManagerDev.Services;
 
@@ -26,7 +27,9 @@ builder.Services.AddSingleton(producerConfig);
 builder.Services.AddSingleton<IProducer<Null, string>>(_ => new ProducerBuilder<Null, string>(producerConfig).Build());
 builder.Services.AddSingleton<IKafkaProducer, KafkaProducer>();
 #endregion
+string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connectionString));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
