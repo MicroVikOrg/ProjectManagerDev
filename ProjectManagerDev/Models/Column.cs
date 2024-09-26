@@ -22,6 +22,6 @@ namespace ProjectManagerDev.Models
         [Column("board_id")]
         public int BoardId { get; set; }
 
-        List<Task> Tasks { get; set; }
+        List<Task> Tasks { get; set; } = new List<Task>();
     }
 }
