@@ -8,8 +8,8 @@ namespace ProjectManagerDev.Models
     public class Task
     {
         [JsonProperty("id")]
-        [Column("id"), Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Column("id"), Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [MaxLength(64)]
         [JsonProperty("name")]
@@ -28,7 +28,7 @@ namespace ProjectManagerDev.Models
 
         [JsonProperty("column_id")]
         [Column("column_id")]
-        public int ColumnId { get; set; }
+        public Guid ColumnId { get; set; }
 
         
     }

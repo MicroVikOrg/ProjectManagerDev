@@ -10,14 +10,15 @@ namespace ProjectManagerDev.Models
     [Table("projects")]
     public class Project
     {
-        [Column("id"),DatabaseGenerated(DatabaseGeneratedOption.Identity), Key]
+        [Column("id"), Key]
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [MaxLength(64)]
         [Column("name")]
+        [Required]
         [JsonProperty("name")]
-        public required string Name { get; set; }
+        public string Name { get; set; }
 
         [Column("summary")]
         [JsonProperty("summary")]
@@ -29,12 +30,20 @@ namespace ProjectManagerDev.Models
 
         [Column("company_id")]
         [JsonProperty("company_id")]
-        public int CompanyId { get; set; }
+        public Guid CompanyId { get; set; }
 
        
         public List<Board> Boards { get; set; } = new List<Board>();
 
         [JsonIgnore]
-        public Company Company { get; set; }
+        public required Company Company { get; set; }
+        public Project(Project project)
+        {
+            Id = project.Id;
+            Name = project.Name;
+            Summary = project.Summary;
+            CreatedAt = project.CreatedAt;
+            CompanyId = project.CompanyId;
+        }
     }
 }

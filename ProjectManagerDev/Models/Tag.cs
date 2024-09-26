@@ -8,8 +8,8 @@ namespace ProjectManagerDev.Models
     public class Tag
     {
         [JsonProperty("id")]
-        [Column("id"), Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Column("id"), Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [MaxLength(32)]
         [JsonProperty("name")]

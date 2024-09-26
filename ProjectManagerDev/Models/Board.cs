@@ -7,9 +7,9 @@ namespace ProjectManagerDev.Models
     [Table("board")]
     public class Board
     {
-        [Column("id"), DatabaseGenerated(DatabaseGeneratedOption.Identity), Key]
+        [Column("id"), Key]
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [MaxLength(64)]
         [Column("name")]
@@ -23,7 +23,7 @@ namespace ProjectManagerDev.Models
 
         [JsonProperty("project_id)")]
         [Column("project_id")]
-        public int ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
 
         List<Column> Columns { get; set; } = new List<Column>();
 

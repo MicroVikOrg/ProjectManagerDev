@@ -7,19 +7,15 @@ namespace ProjectManagerDev.Models
     [Table("companies")]
     public class Company
     {
-        [Column("id"),DatabaseGenerated(DatabaseGeneratedOption.Identity), Key]
+        [Column("id"), Key]
         [JsonProperty("id")]
-        public int Id { get; set; }
-
+        public Guid Id { get; set; } = Guid.NewGuid();
         [Column("created_at")]
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
-
-        
         [Column("company_name")]
         [JsonProperty("company_name")]
         public required string CompanyName { get; set; } 
-
         public List<Project> Projects { get; set; } = new List<Project>();
     }
 }
