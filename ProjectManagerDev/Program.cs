@@ -27,7 +27,7 @@ builder.Services.AddSingleton(producerConfig);
 builder.Services.AddSingleton<IProducer<Null, string>>(_ => new ProducerBuilder<Null, string>(producerConfig).Build());
 builder.Services.AddSingleton<IKafkaProducer, KafkaProducer>();
 #endregion
-string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+string? connectionString = builder.Configuration["ConnectionString"];
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connectionString));
 var app = builder.Build();
