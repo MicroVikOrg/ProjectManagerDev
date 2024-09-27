@@ -29,7 +29,7 @@ namespace ProjectManagerDev.Models
         public DateTime CreatedAt { get; set; }
 
         [Column("company_id")]
-        [JsonProperty("company_id")]
+        [JsonPropertyName("company_id")]
         public Guid CompanyId { get; set; } 
 
        

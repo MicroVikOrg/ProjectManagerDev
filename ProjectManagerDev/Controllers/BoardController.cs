@@ -16,14 +16,14 @@ namespace ProjectManagerDev.Controllers
         private ApplicationContext db;
 
 
-        public BoardController(IKafkaProducer producer, ApplicationContext context, DbManagerFactory factory)
+        public BoardController(IKafkaProducer producer, ApplicationContext context, IDbManagerFactory factory)
         {
             dbManager = factory.GetDbManager<Board>();
             _kafkaProducer = producer;
             db = context;
         }
 
-        [Route("{projectId}")]
+        
         [HttpGet]
         public async Task<IActionResult> GetBoards(string projectId)
         {

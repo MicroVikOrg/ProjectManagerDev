@@ -25,7 +25,7 @@ namespace ProjectManagerDev.Models
         [Column("project_id")]
         public Guid ProjectId { get; set; }
 
-        List<Column> Columns { get; set; } = new List<Column>();
+        public List<Column> Columns { get; set; } = new List<Column>();
 
         [JsonIgnore]
         public Project Project { get; set; }
