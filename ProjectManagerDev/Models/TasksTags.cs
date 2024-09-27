@@ -13,8 +13,8 @@ namespace ProjectManagerDev.Models
         [JsonProperty("task_id")]
         public Guid TaskId { get; set; }
 
-        public List<Task> Tasks { get; set; } = new List<Task>();
-        public List<Tag> Tags { get; set; } = new List<Tag>();
+        public required Task Task { get; set; }
+        public required Tag Tag { get; set; }
 
         [JsonProperty("tag_id")]
         [Column("tag_id")]

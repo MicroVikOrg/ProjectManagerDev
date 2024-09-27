@@ -11,8 +11,8 @@ namespace ProjectManagerDev.Controllers
     public class BoardController : ControllerBase
     {
 
-        private DbManager<Board> dbManager;
         private readonly IKafkaProducer _kafkaProducer;
+        private DbManager<Board> dbManager;
         private ApplicationContext db;
 
 
@@ -37,7 +37,7 @@ namespace ProjectManagerDev.Controllers
             var project = await db.Project.FirstOrDefaultAsync(project => project.Id == board.Id);
             if (project == null) return BadRequest();
             board.Project = project;
-            await dbManager.SaveAsync(board,_kafkaProducer, "NewBoards");
+            await dbManager.SaveAsync(board,"NewBoards");
             return Ok(board);
         }
 
@@ -47,10 +47,8 @@ namespace ProjectManagerDev.Controllers
         {
             var board = await db.Board.FirstOrDefaultAsync(board => board.Id == Guid.Parse(boardId));
             if (board == null) return BadRequest();
-
             db.Board.Remove(board);
             await db.SaveChangesAsync();
-
             return Ok(board);
         }
 
@@ -60,10 +58,7 @@ namespace ProjectManagerDev.Controllers
             var project = await db.Project.FirstOrDefaultAsync(project => project.Id == board.ProjectId);
             if (project == null) return BadRequest();
             board.Project = project;
-            await _kafkaProducer.ProduceMessage("BoardUpdates", JsonConvert.SerializeObject(board));
-            db.Board.Update(board);
-            await db.SaveChangesAsync();
-
+            await dbManager.UpdateAsync(board);
             return Ok(board);
         }
 

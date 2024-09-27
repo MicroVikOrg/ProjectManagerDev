@@ -11,10 +11,12 @@ namespace ProjectManagerDev.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly IKafkaProducer _kafkaProducer;
+        private readonly DbManager<Project> dbManager;
         private ApplicationContext db;
 
-        public ProjectsController(ApplicationContext applicationContext, IKafkaProducer kafkaProducer)
+        public ProjectsController(DbManagerFactory factory, ApplicationContext applicationContext, IKafkaProducer kafkaProducer)
         {
+            dbManager = factory.GetDbManager<Project>();
             _kafkaProducer = kafkaProducer;
             db = applicationContext;
         }
@@ -26,15 +28,14 @@ namespace ProjectManagerDev.Controllers
             var company = await db.Company.FirstOrDefaultAsync(e => Guid.Parse(companyId) == e.Id);
             return company == null ? NotFound() : Ok(company.Projects);
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateProject([FromBody] Project projectModel)
         {
             var company = await db.Company.FirstOrDefaultAsync(e => projectModel.CompanyId == e.Id);
             if (company == null) return BadRequest();
             var project = new Project(projectModel) { Company = company! };
-            await _kafkaProducer.ProduceMessage("NewProjects", JsonConvert.SerializeObject(project));
-            await db.Project.AddAsync(project);
-            await db.SaveChangesAsync();
+            await dbManager.SaveAsync(project, "NewProjects");
             return Ok(project);
         }
 
@@ -56,9 +57,7 @@ namespace ProjectManagerDev.Controllers
             var company = await db.Company.FirstOrDefaultAsync(e => projectModel.CompanyId == e.Id);
             if (company == null) return BadRequest();
             var project = new Project(projectModel) { Company = company! };
-            await _kafkaProducer.ProduceMessage("ProjectUpdates", JsonConvert.SerializeObject(project));
-            db.Project.Update(project);
-            await db.SaveChangesAsync();
+            await dbManager.UpdateAsync(project);
             return Ok(project);
         }
     }
