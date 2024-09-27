@@ -14,7 +14,7 @@ namespace ProjectManagerDev.Controllers
         private readonly DbManager<Project> dbManager;
         private ApplicationContext db;
 
-        public ProjectsController(DbManagerFactory factory, ApplicationContext applicationContext, IKafkaProducer kafkaProducer)
+        public ProjectsController(IDbManagerFactory factory, ApplicationContext applicationContext, IKafkaProducer kafkaProducer)
         {
             dbManager = factory.GetDbManager<Project>();
             _kafkaProducer = kafkaProducer;
@@ -32,11 +32,12 @@ namespace ProjectManagerDev.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProject([FromBody] Project projectModel)
         {
-            var company = await db.Company.FirstOrDefaultAsync(e => projectModel.CompanyId == e.Id);
+            projectModel.CreatedAt = DateTime.UtcNow;
+            var company = await db.Company.FirstOrDefaultAsync(e => e.Id == projectModel.CompanyId);
             if (company == null) return BadRequest();
-            var project = new Project(projectModel) { Company = company! };
-            await dbManager.SaveAsync(project, "NewProjects");
-            return Ok(project);
+            projectModel.Company = company;
+            await dbManager.SaveAsync(projectModel, "NewProjects");
+            return Ok();
         }
 
         [Route("{projectId}")]
@@ -56,9 +57,9 @@ namespace ProjectManagerDev.Controllers
         {
             var company = await db.Company.FirstOrDefaultAsync(e => projectModel.CompanyId == e.Id);
             if (company == null) return BadRequest();
-            var project = new Project(projectModel) { Company = company! };
-            await dbManager.UpdateAsync(project);
-            return Ok(project);
+            projectModel.Company = company;
+            await dbManager.UpdateAsync(projectModel);
+            return Ok(projectModel);
         }
     }
 }

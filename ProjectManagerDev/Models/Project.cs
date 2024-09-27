@@ -30,20 +30,13 @@ namespace ProjectManagerDev.Models
 
         [Column("company_id")]
         [JsonProperty("company_id")]
-        public Guid CompanyId { get; set; }
+        public Guid CompanyId { get; set; } 
 
        
         public List<Board> Boards { get; set; } = new List<Board>();
 
         [JsonIgnore]
-        public required Company Company { get; set; }
-        public Project(Project project)
-        {
-            Id = project.Id;
-            Name = project.Name;
-            Summary = project.Summary;
-            CreatedAt = project.CreatedAt;
-            CompanyId = project.CompanyId;
-        }
+        public Company? Company { get; set; }
+        
     }
 }
