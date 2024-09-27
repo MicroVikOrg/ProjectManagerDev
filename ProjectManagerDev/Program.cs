@@ -28,8 +28,8 @@ builder.Services.AddSingleton<IProducer<Null, string>>(_ => new ProducerBuilder<
 builder.Services.AddSingleton<IKafkaProducer, KafkaProducer>();
 #endregion
 string? connectionString = builder.Configuration["ConnectionString"];
-
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddSingleton(typeof(IDbManager<>), typeof(DbManager<>));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -7,7 +7,7 @@ namespace ProjectManagerDev.Models
 {
     [Table("task_tags")]
     [PrimaryKey("TaskId","TagId")]
-    public class TasksTags
+    public class TasksTags 
     {
         [Column("task_id")]
         [JsonProperty("task_id")]

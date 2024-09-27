@@ -8,7 +8,7 @@ using JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 namespace ProjectManagerDev.Models
 {
     [Table("projects")]
-    public class Project
+    public class Project : BaseEntity
     {
         [Column("id"), Key]
         [JsonProperty("id")]

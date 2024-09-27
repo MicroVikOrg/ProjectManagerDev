@@ -4,12 +4,12 @@ namespace ProjectManagerDev.Models
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<Company> Companies { get; set; } = null!;
-        public DbSet<Project> Projects { get; set; } = null!;
-        public DbSet<Board> Boards { get; set; } = null!;
-        public DbSet<Column> Columns { get; set; } = null!;
-        public DbSet<Task> Tasks { get; set; } = null!;
-        public DbSet<Tag> Tags { get; set; } = null!;
+        public DbSet<Company> Company { get; set; } = null!;
+        public DbSet<Project> Project { get; set; } = null!;
+        public DbSet<Board> Board { get; set; } = null!;
+        public DbSet<Column> Column { get; set; } = null!;
+        public DbSet<Task> Task { get; set; } = null!;
+        public DbSet<Tag> Tag { get; set; } = null!;
         public DbSet<TasksTags> TasksTags { get; set; } = null!;
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ProjectManagerDev.Models
 {
     [Table("board")]
-    public class Board
+    public class Board : BaseEntity
     {
         [Column("id"), Key]
         [JsonProperty("id")]
