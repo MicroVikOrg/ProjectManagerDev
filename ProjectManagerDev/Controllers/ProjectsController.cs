@@ -21,7 +21,6 @@ namespace ProjectManagerDev.Controllers
             db = applicationContext;
         }
 
-        [Route("{companyId}")]
         [HttpGet]
         public async Task<IActionResult> GetProjects(string companyId)
         {
@@ -40,7 +39,6 @@ namespace ProjectManagerDev.Controllers
             return Ok();
         }
 
-        [Route("{projectId}")]
         [HttpDelete]
         public async Task<IActionResult> DeleteProject(string projectId)
         {

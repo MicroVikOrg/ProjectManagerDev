@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using System.Text.Json.Serialization;
+using JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 namespace ProjectManagerDev.Models
 {
     [Table("tasks")]
@@ -26,7 +27,7 @@ namespace ProjectManagerDev.Models
         public Column Column { get; set; }
 
 
-        [JsonProperty("column_id")]
+        [JsonPropertyName("column_id")]
         [Column("column_id")]
         public Guid ColumnId { get; set; }
 

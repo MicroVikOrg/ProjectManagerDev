@@ -41,7 +41,6 @@ namespace ProjectManagerDev.Controllers
             return Ok(board);
         }
 
-        [Route("{boardId}")]
         [HttpDelete]
         public async Task<IActionResult> DeleteBoard(string boardId)
         {

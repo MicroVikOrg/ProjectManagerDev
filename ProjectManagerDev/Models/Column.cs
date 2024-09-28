@@ -18,6 +18,6 @@ namespace ProjectManagerDev.Models
         [JsonProperty("board_id")]
         [Column("board_id")]
         public Guid BoardId { get; set; }
-        List<Task> Tasks { get; set; } = new List<Task>();
+        public List<Task> Tasks { get; set; } = new List<Task>();
     }
 }
