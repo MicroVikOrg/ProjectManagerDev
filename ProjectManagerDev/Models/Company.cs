@@ -7,9 +7,6 @@ namespace ProjectManagerDev.Models
     [Table("companies")]
     public class Company : BaseEntity
     {
-        [Column("id"), Key]
-        [JsonProperty("id")]
-        public Guid Id { get; set; } = Guid.NewGuid();
         [Column("created_at")]
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }

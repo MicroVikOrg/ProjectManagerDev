@@ -7,10 +7,6 @@ namespace ProjectManagerDev.Models
     [Table("tags")]
     public class Tag : BaseEntity
     {
-        [JsonProperty("id")]
-        [Column("id"), Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
-
         [MaxLength(32)]
         [JsonProperty("name")]
         [Column("name")]

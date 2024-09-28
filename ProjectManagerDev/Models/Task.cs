@@ -8,10 +8,6 @@ namespace ProjectManagerDev.Models
     [Table("tasks")]
     public class Task : BaseEntity
     {
-        [JsonProperty("id")]
-        [Column("id"), Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
-
         [MaxLength(64)]
         [JsonProperty("name")]
         [Column("name")]

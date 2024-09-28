@@ -7,9 +7,6 @@ namespace ProjectManagerDev.Models
     [Table("columns")]
     public class Column : BaseEntity
     {
-        [JsonProperty("id")]
-        [Column("id"), Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
         [JsonProperty("name")]
         [Column("name")]
         public required string Name { get; set; }

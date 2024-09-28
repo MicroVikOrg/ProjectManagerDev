@@ -10,10 +10,6 @@ namespace ProjectManagerDev.Models
     [Table("projects")]
     public class Project : BaseEntity
     {
-        [Column("id"), Key]
-        [JsonProperty("id")]
-        public Guid Id { get; set; } = Guid.NewGuid();
-
         [MaxLength(64)]
         [Column("name")]
         [Required]

@@ -36,7 +36,7 @@ namespace ProjectManagerDev.Controllers
             if (company == null) return BadRequest();
             projectModel.Company = company;
             await dbManager.SaveAsync(projectModel, "NewProjects");
-            return Ok();
+            return Ok(projectModel.Id);
         }
 
         [HttpDelete]
@@ -54,10 +54,14 @@ namespace ProjectManagerDev.Controllers
         public async Task<IActionResult> UpdateProject([FromBody] Project projectModel)
         {
             var company = await db.Company.FirstOrDefaultAsync(e => projectModel.CompanyId == e.Id);
+            foreach (var item in db.Company)
+            {
+                Console.WriteLine(item.Id);
+            }
             if (company == null) return BadRequest();
             projectModel.Company = company;
             await dbManager.UpdateAsync(projectModel);
-            return Ok(projectModel);
+            return Ok();
         }
     }
 }
